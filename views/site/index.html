@@ -1,0 +1,72 @@
+<body>
+  <b><i>Controller: SITE </i></b>
+  </br>
+  <b><i>File: INDEX </i></b>
+</body>
+
+<script>
+  function ws(callback) {
+    if (typeof callback != 'function') return false;
+    this.socket = 0;
+
+    function Init() {
+      socket = new WebSocket("ws://127.0.0.1:4010");
+      socket.onopen = function() {
+        console.log("Connect");
+      };
+
+      socket.onmessage = callback;
+
+      socket.onclose = function(event) {
+        if (event.wasClean) {
+          console.log('Close connect success');
+        } else {
+          getMessage();
+          console.log('Refused connect');
+        }
+      }
+
+      socket.onerror = function(error) {
+        getMessage();
+        console.log("Error " + error.message);
+      };
+    }
+
+    Init();
+
+    this.send = function(v) {
+      socket.send(v);
+    };
+
+    this.close = function() {
+      socket.close();
+      return true;
+    }
+  }
+
+  var getMessage = function(event) {
+    if (typeof event['data'] == 'undefined') return false;
+    var data = JSON.parse(event.data);
+    try {
+      var data_server = data;
+      console.info(data_server);
+    } catch (e) {
+      console.info(e);
+    }
+  }
+
+  var wsock = new ws(getMessage);
+
+  setTimeout(function() {
+    wsock.send(
+      JSON.stringify({
+        controller: 'site',
+        action: '/',
+        param: {
+          text: "it's is site controller",
+          status: 'success'
+        }
+      })
+    );
+  }, 400);
+</script>

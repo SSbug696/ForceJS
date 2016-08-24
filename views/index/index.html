@@ -1,0 +1,107 @@
+<body>
+  <b><i>Controller: INDEX </i></b>
+  </br>
+  <b><i>File: INDEX</i></b>
+  </br>
+  <h1></h1>
+  
+  <table>
+  </table>
+
+  <h2 class="s_ajax"></h2>
+  <h2 class="s_websockets"></h2>
+
+
+<script>
+
+  var userData = <$? userData ?>;
+  $('h1').html(userData.table);
+
+  userData.data.forEach(function(i, v){
+    $('table').append('<tr class="table_tr">');
+    
+    var last = $('table tr').last();
+    last.append('<td>'+i.name+'</td>' + '<td class="tabl_td">'+i.age+'</td>');
+    
+    $('table').append('</tr>');
+  });
+
+
+  $.post('/index/testAjax', { data:21 }, function (data, status) {
+    if(status === "success"){
+      $('.s_ajax').html('Ajax said :' + data);
+    } else {
+      $('.s_ajax').html(status);
+    }
+  });
+
+
+
+  function ws(callback) {
+    if (typeof callback != 'function') return false;
+    this.socket = 0;
+
+    function Init() {
+      socket = new WebSocket("ws://127.0.0.1:4010");
+      socket.onopen = function() {
+        console.log("Connect");
+      };
+
+      socket.onmessage = callback;
+
+      socket.onclose = function(event) {
+        if (event.wasClean) {
+          console.log('Close connect success');
+        } else {
+          getMessage();
+          console.log('Refused connect');
+        }
+      }
+
+      socket.onerror = function(error) {
+        getMessage();
+        console.log("Error " + error.message);
+      };
+    }
+
+    Init();
+
+    this.send = function(v) {
+      socket.send(v);
+    };
+
+    this.close = function() {
+      socket.close();
+      return true;
+    }
+  }
+
+  var getMessage = function(event) {
+    if (typeof event['data'] == 'undefined') return false;
+    var data = JSON.parse(event.data);
+    try {
+      $('.s_websockets').html('Websockets said: ' + data.recv_text);
+    } catch (e) {
+       $('.s_websockets').html('Websockets said about error');
+    }
+  }
+
+  var wsock = new ws(getMessage);
+
+  setTimeout(function() {
+    wsock.send(
+      JSON.stringify({
+        controller: '/',
+        action: '/',
+        param: {
+          text: "it's is index controller",
+          status: 'success'
+        }
+      })
+    );
+  }, 400);
+
+</script>
+
+
+</body>
