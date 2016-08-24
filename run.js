@@ -2,7 +2,7 @@ var app = require('./core/core.js');
 var routes = require('./core/routes.js');
 var error = require('./routes/error/index.js')(routes);
 var index = require('./routes/index/index.js')(routes);
-var urlParse  = require('./core/urlParse.js');
+var urlParse  = require('./modules/urlParse.js');
 
 //  You can enable session. Cookies is safe because it takes into account the module ip address
 /*
@@ -32,6 +32,7 @@ app.setStaticPath('assets', 'css');
 
 app.setRouts('/', index);
 app.setRouts('index', index);
+app.setRouts('account', index);
 app.setRouts('error', error);
 
 

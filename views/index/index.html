@@ -5,30 +5,15 @@
   </br>
   <h1></h1>
   
-  <table>
-  </table>
 
   <h2 class="s_ajax"></h2>
   <h2 class="s_websockets"></h2>
 
 
 <script>
-
-  var userData = <$? userData ?>;
-  $('h1').html(userData.table);
-
-  userData.data.forEach(function(i, v){
-    $('table').append('<tr class="table_tr">');
-    
-    var last = $('table tr').last();
-    last.append('<td>'+i.name+'</td>' + '<td class="tabl_td">'+i.age+'</td>');
-    
-    $('table').append('</tr>');
-  });
-
-
+  // test request
   $.post('/index/testAjax', { data:21 }, function (data, status) {
-    if(status === "success"){
+    if(status === 'success'){
       $('.s_ajax').html('Ajax said :' + data);
     } else {
       $('.s_ajax').html(status);
@@ -36,15 +21,14 @@
   });
 
 
-
   function ws(callback) {
     if (typeof callback != 'function') return false;
     this.socket = 0;
 
     function Init() {
-      socket = new WebSocket("ws://127.0.0.1:4010");
+      socket = new WebSocket('ws://127.0.0.1:4010');
       socket.onopen = function() {
-        console.log("Connect");
+        console.log('Connect');
       };
 
       socket.onmessage = callback;
@@ -99,7 +83,7 @@
         }
       })
     );
-  }, 400);
+  }, 1500);
 
 </script>
 
