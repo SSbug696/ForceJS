@@ -7,8 +7,6 @@ module.exports = function(expires) {
 
   this.init = function(req, res, step, callback) {
 
-    //console.log('step session : '+ step);
-
     var self = context;
     var cb = callback;
     // Create session structure
