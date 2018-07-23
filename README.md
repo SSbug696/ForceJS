@@ -1,8 +1,7 @@
 ### ForceJS
----
-##### What and why?
 
-###### The fastest and flexible framework! You can create simple websites, and websites based on the principles of isomorphism! Monomorphic code that allows to ignore the differences between conventional http and websockets. 
+
+##### The fastest and flexible framework. You can create simple websites, and websites based on the principles of isomorphism. Monomorphic code that allows to ignore the differences between conventional http and websockets. 
 ---
 ##### What can?
 Basic routing, layer, middlware, support for Web Sockets.
