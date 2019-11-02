@@ -15,10 +15,10 @@ var app = require('./core/core.js');
 var routes = require('./core/routes.js');
 var index = require('./routes/index/index.js')(routes);
 
-//Setter to change the kernel configuration flags
+// Setter to change the kernel configuration flags
 app.setConfigProperty('error_reporting.debug_mode', true);
 app.setConfigProperty('error_reporting.log_save', true);
-//You can download a configuration object
+// You can download a configuration object
 app.setConfigObject('myConfig', {pid:'333'});
 
 // You can specify an alias for a path to the static
@@ -50,7 +50,7 @@ module.exports = function(routes){
     });
 
     routes.get('auth', function(req, res){
-        //req.session.authStatus(true);
+        // req.session.authStatus(true);
         res.redirect('/');
     });
 
@@ -59,7 +59,7 @@ module.exports = function(routes){
     });
     
     routes.get('account', function(req, res){
-        //req.session.set({//any data});
+        // req.session.set({//any data});
         res.render('account', {mywork:'data', highload: 'good load is good!'});
     });
     
@@ -82,9 +82,9 @@ routes.get('page', function(req, res){
 ---
 ```javascript
 	res.send(202, 'success'); // server response code - 202, content-type - text/plain
-	res.send(503, {type_response: 'error'}); // server response code - 503, content type- js/json
-	res.send(503, [1,2,3,4,5,6]); //// server response code - 503, content-type - text/plain
-	res.send(202); //// server response code - 202, content-type - text/plain
+	res.send(503, {type_response: 'error'}); // server response code - 503, content type- application/json
+	res.send(503, [1,2,3,4,5,6]); // server response code - 503, content-type - text/plain
+	res.send(202); // server response code - 202, content-type - text/plain
 });
 ```
 ###### Definitions as the relative path to the presentation and to the absolute ( the root )
